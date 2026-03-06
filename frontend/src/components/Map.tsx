@@ -129,8 +129,14 @@ export default function Map() {
           Boreholes
         </Text>
         <LegendItem color={COLOR_TEMPERATURE} label="Temperature" />
-        <LegendItem color={COLOR_TEMPERATURE_CHEMISTRY} label="Temperature + chemistry" />
-        <LegendItem color={COLOR_TEMPERATURE_GRAIN_SIZE} label="Temperature + grain size" />
+        <LegendItem
+          color={COLOR_TEMPERATURE_CHEMISTRY}
+          label="Temperature + chemistry"
+        />
+        <LegendItem
+          color={COLOR_TEMPERATURE_GRAIN_SIZE}
+          label="Temperature + grain size"
+        />
         <LegendItem color={COLOR_ALL} label="All three" />
       </VStack>
     </Box>

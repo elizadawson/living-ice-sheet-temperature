@@ -8,11 +8,9 @@ on:
 jobs:
   check:
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: frontend
     steps:
       - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v7
       - uses: actions/setup-node@v4
         with:
           node-version: 22
@@ -20,7 +18,9 @@ jobs:
           cache-dependency-path: frontend/yarn.lock
       - name: Install dependencies
         run: yarn install --immutable
-      - name: Check formatting
-        run: yarn check-format
+        working-directory: frontend
+      - name: Check
+        run: scripts/check
       - name: Build
         run: yarn build
+        working-directory: frontend
