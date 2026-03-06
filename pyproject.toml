@@ -1,0 +1,25 @@
+[project]
+name = "living-ice-temperature"
+version = "0.1.0"
+description = "Backend processing for radar-derived ice temperature data in Antarctica"
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = [
+    "click>=8.3.1",
+    "geojson-pydantic>=2.1.0",
+    "pydantic>=2.12.5",
+]
+
+[project.scripts]
+living-ice-temperature = "living_ice_temperature.main:cli"
+
+[dependency-groups]
+dev = [
+    "pytest>=9.0.2",
+    "ruff>=0.15.5",
+    "ty>=0.0.21",
+]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"

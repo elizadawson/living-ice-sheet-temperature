@@ -1,0 +1,5 @@
+#!/usr/bin/env sh
+
+set -e
+
+uv run living-ice-temperature boreholes data/BoreholeLocations.csv > frontend/public/boreholes.json

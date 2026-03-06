@@ -1,0 +1,509 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -140.0053,
+          -81.0736
+        ]
+      },
+      "properties": {
+        "name": "BIS9845",
+        "location": "Bindschadler ice stream",
+        "region": "West",
+        "start_year": 1998,
+        "end_year": 1998,
+        "type": "Borehole",
+        "ice_thickness": 1086.0,
+        "drilled_depth": null,
+        "original_publication": "https://www.cambridge.org/core/journals/annals-of-glaciology/article/thermal-regime-and-dynamics-of-the-west-antarctic-ice-sheet/C4DE27B2686B52416C4A0CFB8021920C"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -119.5167,
+          -80.0167
+        ]
+      },
+      "properties": {
+        "name": "Byrd",
+        "location": "Byrd station",
+        "region": "West",
+        "start_year": 1966,
+        "end_year": 1968,
+        "type": "Borehole",
+        "ice_thickness": 2300.0,
+        "drilled_depth": 1530.0,
+        "original_publication": "https://www.cambridge.org/core/journals/annals-of-glaciology/article/byrd-station-drilling-196669/3A5AB888B8D7F9032F0C435D43D16A51"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -172.9475,
+          -83.0394
+        ]
+      },
+      "properties": {
+        "name": "CIRD",
+        "location": "Crary Ice Rise",
+        "region": "West",
+        "start_year": 1987,
+        "end_year": 1988,
+        "type": "Borehole",
+        "ice_thickness": 480.0,
+        "drilled_depth": null,
+        "original_publication": "https://www.cambridge.org/core/journals/annals-of-glaciology/article/age-of-crary-ice-rise-antarctica-determined-from-temperaturedepth-profiles/C50D6867D25016F78712EADAA18F94A9"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          123.4,
+          -75.1
+        ]
+      },
+      "properties": {
+        "name": "DomeC",
+        "location": "Dome C",
+        "region": "East",
+        "start_year": 1999,
+        "end_year": 2004,
+        "type": "Borehole",
+        "ice_thickness": 3273.0,
+        "drilled_depth": 3233.0,
+        "original_publication": "https://www.nature.com/articles/nature02599#Sec10"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          39.6667,
+          -77.3167
+        ]
+      },
+      "properties": {
+        "name": "DomeF",
+        "location": "Dome Fuji",
+        "region": "East",
+        "start_year": 2003,
+        "end_year": 2007,
+        "type": "Borehole",
+        "ice_thickness": 3028.0,
+        "drilled_depth": 3810.0,
+        "original_publication": "https://tc.copernicus.org/articles/14/4021/2020/"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -135.8253,
+          -82.6767
+        ]
+      },
+      "properties": {
+        "name": "ER9612",
+        "location": "Engelhardt Ice Ridge",
+        "region": "West",
+        "start_year": 1996,
+        "end_year": 1996,
+        "type": "Borehole",
+        "ice_thickness": 1123.9,
+        "drilled_depth": null,
+        "original_publication": "https://www.cambridge.org/core/journals/annals-of-glaciology/article/thermal-regime-and-dynamics-of-the-west-antarctic-ice-sheet/C4DE27B2686B52416C4A0CFB8021920C"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -136.4,
+          -82.3667
+        ]
+      },
+      "properties": {
+        "name": "KIS0012",
+        "location": "Kamb ice stream",
+        "region": "West",
+        "start_year": 2000,
+        "end_year": 2000,
+        "type": "Borehole",
+        "ice_thickness": 949.4,
+        "drilled_depth": null,
+        "original_publication": "https://www.cambridge.org/core/journals/annals-of-glaciology/article/thermal-regime-and-dynamics-of-the-west-antarctic-ice-sheet/C4DE27B2686B52416C4A0CFB8021920C"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -136.4022,
+          -82.4325
+        ]
+      },
+      "properties": {
+        "name": "KIS006",
+        "location": "Kamb ice stream",
+        "region": "West",
+        "start_year": 2000,
+        "end_year": 2000,
+        "type": "Borehole",
+        "ice_thickness": 1191.8,
+        "drilled_depth": null,
+        "original_publication": "https://www.cambridge.org/core/journals/annals-of-glaciology/article/thermal-regime-and-dynamics-of-the-west-antarctic-ice-sheet/C4DE27B2686B52416C4A0CFB8021920C"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -136.4044,
+          -82.3997
+        ]
+      },
+      "properties": {
+        "name": "KIS009",
+        "location": "Kamb ice stream",
+        "region": "West",
+        "start_year": 2000,
+        "end_year": 2000,
+        "type": "Borehole",
+        "ice_thickness": 1033.5,
+        "drilled_depth": null,
+        "original_publication": "https://www.cambridge.org/core/journals/annals-of-glaciology/article/thermal-regime-and-dynamics-of-the-west-antarctic-ice-sheet/C4DE27B2686B52416C4A0CFB8021920C"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -135.9767,
+          -82.445
+        ]
+      },
+      "properties": {
+        "name": "KIS962",
+        "location": "Kamb ice stream",
+        "region": "West",
+        "start_year": 1996,
+        "end_year": 1996,
+        "type": "Borehole",
+        "ice_thickness": 1189.0,
+        "drilled_depth": null,
+        "original_publication": "https://www.cambridge.org/core/journals/annals-of-glaciology/article/thermal-regime-and-dynamics-of-the-west-antarctic-ice-sheet/C4DE27B2686B52416C4A0CFB8021920C"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0.0,
+          -75.0
+        ]
+      },
+      "properties": {
+        "name": "Kohnen",
+        "location": "Kohnen",
+        "region": "East",
+        "start_year": 2002,
+        "end_year": 2006,
+        "type": "Borehole",
+        "ice_thickness": 2750.0,
+        "drilled_depth": 2892.0,
+        "original_publication": "https://tc.copernicus.org/articles/14/4021/2020/"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          112.8,
+          -66.7667
+        ]
+      },
+      "properties": {
+        "name": "LawDome",
+        "location": "Law Dome",
+        "region": "East",
+        "start_year": null,
+        "end_year": null,
+        "type": "Borehole",
+        "ice_thickness": 1196.0,
+        "drilled_depth": null,
+        "original_publication": "https://www.cambridge.org/core/journals/journal-of-glaciology/article/inferring-geothermal-heat-flux-from-an-iceborehole-temperature-profile-at-law-dome-east-antarctica/766F206C214CCA9DEB7C205D679FCB31"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -148.8083,
+          -81.6583
+        ]
+      },
+      "properties": {
+        "name": "SipleDome",
+        "location": "Siple Dome",
+        "region": "West",
+        "start_year": 1997,
+        "end_year": 1997,
+        "type": "Borehole",
+        "ice_thickness": 1004.6,
+        "drilled_depth": null,
+        "original_publication": "https://www.cambridge.org/core/journals/annals-of-glaciology/article/thermal-regime-and-dynamics-of-the-west-antarctic-ice-sheet/C4DE27B2686B52416C4A0CFB8021920C"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          158.0,
+          -77.666667
+        ]
+      },
+      "properties": {
+        "name": "TaylorDome",
+        "location": "Taylor Dome",
+        "region": "East",
+        "start_year": null,
+        "end_year": null,
+        "type": "Borehole",
+        "ice_thickness": null,
+        "drilled_depth": 554.99,
+        "original_publication": "https://icecores.org/inventory/taylor-dome"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -138.1458,
+          -83.5794
+        ]
+      },
+      "properties": {
+        "name": "UC9311",
+        "location": "Unicorn",
+        "region": "West",
+        "start_year": 1993,
+        "end_year": 1993,
+        "type": "Borehole",
+        "ice_thickness": 910.6,
+        "drilled_depth": null,
+        "original_publication": "https://www.cambridge.org/core/journals/annals-of-glaciology/article/thermal-regime-and-dynamics-of-the-west-antarctic-ice-sheet/C4DE27B2686B52416C4A0CFB8021920C"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -138.3717,
+          -83.6792
+        ]
+      },
+      "properties": {
+        "name": "UC9314",
+        "location": "Unicorn",
+        "region": "West",
+        "start_year": 1993,
+        "end_year": 1993,
+        "type": "Borehole",
+        "ice_thickness": 1091.6,
+        "drilled_depth": null,
+        "original_publication": "https://www.cambridge.org/core/journals/annals-of-glaciology/article/thermal-regime-and-dynamics-of-the-west-antarctic-ice-sheet/C4DE27B2686B52416C4A0CFB8021920C"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -138.0419,
+          -83.6108
+        ]
+      },
+      "properties": {
+        "name": "UC9316",
+        "location": "Unicorn",
+        "region": "West",
+        "start_year": 1993,
+        "end_year": 1993,
+        "type": "Borehole",
+        "ice_thickness": 962.3,
+        "drilled_depth": null,
+        "original_publication": "https://www.cambridge.org/core/journals/annals-of-glaciology/article/thermal-regime-and-dynamics-of-the-west-antarctic-ice-sheet/C4DE27B2686B52416C4A0CFB8021920C"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -138.1494,
+          -83.5733
+        ]
+      },
+      "properties": {
+        "name": "UC939",
+        "location": "Unicorn",
+        "region": "West",
+        "start_year": 1993,
+        "end_year": 1993,
+        "type": "Borehole",
+        "ice_thickness": 908.4,
+        "drilled_depth": null,
+        "original_publication": "https://www.cambridge.org/core/journals/annals-of-glaciology/article/thermal-regime-and-dynamics-of-the-west-antarctic-ice-sheet/C4DE27B2686B52416C4A0CFB8021920C"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          106.8,
+          -78.4667
+        ]
+      },
+      "properties": {
+        "name": "Vostok",
+        "location": "Lake Vostok",
+        "region": "East",
+        "start_year": 1990,
+        "end_year": 1998,
+        "type": "Borehole",
+        "ice_thickness": 3750.0,
+        "drilled_depth": 3488.0,
+        "original_publication": "https://www.sciencedirect.com/science/article/abs/pii/S0012821X09001629https://www.sciencedirect.com/science/article/abs/pii/S0012821X09001629"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -112.0865,
+          -79.4676
+        ]
+      },
+      "properties": {
+        "name": "WAISDivide",
+        "location": "WAIS Divide",
+        "region": "West",
+        "start_year": 2007,
+        "end_year": 2012,
+        "type": "Borehole",
+        "ice_thickness": 3455.0,
+        "drilled_depth": 1766.0,
+        "original_publication": "https://doi.org/10.7265/N5V69GJW"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -138.4239,
+          -83.4994
+        ]
+      },
+      "properties": {
+        "name": "WIS881",
+        "location": "Whillans Ice Stream",
+        "region": "West",
+        "start_year": 1988,
+        "end_year": 1988,
+        "type": "Borehole",
+        "ice_thickness": 1035.0,
+        "drilled_depth": null,
+        "original_publication": "https://www.cambridge.org/core/journals/annals-of-glaciology/article/thermal-regime-and-dynamics-of-the-west-antarctic-ice-sheet/C4DE27B2686B52416C4A0CFB8021920C"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -138.4267,
+          -83.4833
+        ]
+      },
+      "properties": {
+        "name": "WIS911",
+        "location": "Whillans Ice Stream",
+        "region": "West",
+        "start_year": 1991,
+        "end_year": 1991,
+        "type": "Borehole",
+        "ice_thickness": 1055.0,
+        "drilled_depth": null,
+        "original_publication": "https://www.cambridge.org/core/journals/annals-of-glaciology/article/thermal-regime-and-dynamics-of-the-west-antarctic-ice-sheet/C4DE27B2686B52416C4A0CFB8021920C"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -138.4581,
+          -83.4847
+        ]
+      },
+      "properties": {
+        "name": "WIS9226",
+        "location": "Whillans Ice Stream",
+        "region": "West",
+        "start_year": 1992,
+        "end_year": 1992,
+        "type": "Borehole",
+        "ice_thickness": 1052.0,
+        "drilled_depth": null,
+        "original_publication": "https://www.cambridge.org/core/journals/annals-of-glaciology/article/thermal-regime-and-dynamics-of-the-west-antarctic-ice-sheet/C4DE27B2686B52416C4A0CFB8021920C"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -138.9464,
+          -83.4619
+        ]
+      },
+      "properties": {
+        "name": "WIS9547",
+        "location": "Whillans Ice Stream",
+        "region": "West",
+        "start_year": 1995,
+        "end_year": 1995,
+        "type": "Borehole",
+        "ice_thickness": 1026.3,
+        "drilled_depth": null,
+        "original_publication": "https://www.cambridge.org/core/journals/annals-of-glaciology/article/thermal-regime-and-dynamics-of-the-west-antarctic-ice-sheet/C4DE27B2686B52416C4A0CFB8021920C"
+      }
+    }
+  ]
+}

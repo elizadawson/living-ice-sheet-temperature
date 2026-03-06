@@ -7,6 +7,12 @@ Frontend application and backend processing for radar-derived ice temperature da
 
 ## Usage
 
+To update the frontend data, get [uv](https://docs.astral.sh/uv/), then:
+
+```sh
+scripts/update-frontend-data
+```
+
 To run the frontend locally, get [yarn](https://yarnpkg.com/getting-started/install), then:
 
 ```sh
@@ -16,3 +22,17 @@ yarn dev
 ```
 
 This will open the frontend at http://localhost:5174/living-ice-temperature/.
+
+## Development
+
+For backend processing, we have some light tests:
+
+```sh
+pytest
+```
+
+To run all of our checks (linting, formatting, etc):
+
+```sh
+scripts/check
+```
