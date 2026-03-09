@@ -1,3 +1,6 @@
+import urllib.parse
+from pathlib import Path
+
 import click
 
 from . import cache
@@ -29,12 +32,21 @@ def boreholes(href: str | None, no_cache: bool) -> None:
 @click.argument("URL")
 @no_cache
 def fetch(url: str, no_cache: bool) -> None:
-    """Fetch a url and return its contents.
+    """Fetch a url and return its local file path."""
+    path = cache.fetch(url, no_cache=no_cache)
+    click.echo(path)
 
-    Caches the value locally for later fetches.
-    """
-    data = cache.fetch(url, no_cache=no_cache)
-    click.echo(data)
+
+@cli.command()
+@click.argument("HREF")
+@no_cache
+def temperature(href: str, no_cache: bool) -> None:
+    """Create along-track temperatures."""
+    if urllib.parse.urlparse(href).scheme:
+        path = cache.fetch(href)
+    else:
+        path = Path(href)
+    raise NotImplementedError
 
 
 if __name__ == "__main__":

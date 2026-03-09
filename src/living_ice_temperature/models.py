@@ -86,9 +86,11 @@ class Borehole(BaseModel):
             "original_publication",
         ]
         if url.scheme:
-            text = cache.fetch(href, no_cache=no_cache)
+            path = cache.fetch(href, no_cache=no_cache)
         else:
-            text = Path(href).read_text()
+            path = Path(href)
+
+        text = path.read_text()
         reader = csv.DictReader(text.splitlines(), fieldnames=fieldnames)
 
         next(reader)  # discard headers
