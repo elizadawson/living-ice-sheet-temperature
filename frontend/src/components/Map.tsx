@@ -113,6 +113,7 @@ export default function Map() {
         lineWidthUnits: "pixels",
         lineWidthMinPixels: 1,
         pickable: true,
+        autoHighlight: true,
       }),
   ];
 
@@ -123,6 +124,7 @@ export default function Map() {
         initialViewState={INITIAL_VIEW_STATE}
         controller
         layers={layers}
+        getCursor={({ isHovering }) => (isHovering ? "pointer" : "grab")}
         getTooltip={({ object }: { object?: Feature }) =>
           object?.properties?.name ?? null
         }
