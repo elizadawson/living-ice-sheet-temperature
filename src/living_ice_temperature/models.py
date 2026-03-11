@@ -134,7 +134,9 @@ class Borehole(BaseModel):
 
 
 def get_data_urls() -> defaultdict[str, dict[str, str]]:
-    store = S3Store.from_url(BOREHOLE_DATA_S3_URL, skip_signature=True)
+    store = S3Store.from_url(BOREHOLE_DATA_S3_URL, skip_signature=True, config={
+        "aws_region": "us-west-2"
+    })
     urls = defaultdict(dict)
     for list_result in store.list():
         for object_meta in list_result:
