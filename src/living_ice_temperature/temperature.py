@@ -70,7 +70,7 @@ def compute_along_track(data_frame: DataFrame, mode: Mode) -> GeoDataFrame:
                 residual_function, 250, args=(sigma[i],)
             )[0]
     return GeoDataFrame(
-        data={"temperature": temperature},
+        data={"temperature": temperature, "attenuation": attenuation},
         geometry=geopandas.points_from_xy(data_frame["x"], data_frame["y"]),
         crs="EPSG:3031",
     )
