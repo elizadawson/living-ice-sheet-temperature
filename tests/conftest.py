@@ -1,4 +1,7 @@
+import json
+import pandas
 from pathlib import Path
+from pandas import DataFrame
 
 import pytest
 
@@ -16,3 +19,21 @@ def boreholes_path(data_path: Path) -> Path:
 @pytest.fixture
 def attenuation_path(data_path: Path) -> Path:
     return data_path / "FullDataSet_Randomized_head.txt"
+
+@pytest.fixture
+def sample_data_path(data_path: Path) -> Path:
+    return data_path / "sample_data.json"
+
+@pytest.fixture
+def sample_data(sample_data_path: Path) -> DataFrame:
+    with open(sample_data_path) as f:
+        data = json.load(f)
+    points = data["points"]
+    return DataFrame(
+        {
+            "x": [p["x"] for p in points],
+            "y": [p["y"] for p in points],
+            "atten_rate_C0": [p["attenuation_rate"] for p in points],
+            "pure_temperature_K": [p["pure"]["temperature_K"] for p in points]
+        }
+    )

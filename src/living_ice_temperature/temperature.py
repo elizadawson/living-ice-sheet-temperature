@@ -8,6 +8,7 @@ from typing import Callable
 import geopandas
 import numpy
 import pandas
+from pandas import DataFrame
 import scipy.optimize
 import tqdm
 from geopandas import GeoDataFrame
@@ -37,8 +38,11 @@ class Mode(StrEnum):
                 return pure_ice_residual
 
 
-def compute_along_track(path: Path, mode: Mode) -> GeoDataFrame:
+def compute_along_track_from_path(path: Path, mode: Mode) -> GeoDataFrame:
     data_frame = pandas.read_csv(path)
+    return compute_along_track(data_frame, mode)
+
+def compute_along_track(data_frame: DataFrame, mode: Mode) -> GeoDataFrame:
     if "atten_rate_C0" not in data_frame:
         raise ValueError("atten_rate_C0 not found in data_frame")
 
