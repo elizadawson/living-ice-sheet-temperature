@@ -60,7 +60,9 @@ export default function Map() {
 
   const pmtiles = useMemo(
     () =>
-      new PMTiles(import.meta.env.BASE_URL + "temperatures-pure-ice.pmtiles"),
+      new PMTiles(
+        "https://data.source.coop/englacial/ice-sheet-temperature/temperature/temperature-pure-ice.pmtiles",
+      ),
     [],
   );
 
