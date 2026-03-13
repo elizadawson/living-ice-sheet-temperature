@@ -24,6 +24,27 @@ To see what commands are available, install [uv](https://docs.astral.sh/uv/getti
 uv run living-ice-temperature --help
 ```
 
+### Generating data products
+
+You'll need [GDAL](https://gdal.org/en/stable/download.html#binaries) and [tippecanoe](https://github.com/felt/tippecanoe?tab=readme-ov-file#installation).
+We use a simple [Makefile](./Makefile) to (re)generate data.
+
+```sh
+make
+```
+
+To force regeneration of all data:
+
+```sh
+make -B
+```
+
+If your default GDAL install doesn't have parquet reader support, you can customize the GDAL location:
+
+```sh
+GDAL=/path/to/parquet/enabed/gdal make
+```
+
 ## Development
 
 For backend processing, we have some light tests:
