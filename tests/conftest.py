@@ -7,7 +7,7 @@ from pandas import DataFrame
 
 @pytest.fixture
 def data_path() -> Path:
-    return Path(__file__).parents[1] / "data"
+    return Path(__file__).parent / "data"
 
 
 @pytest.fixture

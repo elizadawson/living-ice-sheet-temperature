@@ -213,7 +213,6 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
-data/FullDataSet_Randomized.txt
-data/*.parquet
-*.fgb
-*.pmtiles
+
+# Data
+data/
