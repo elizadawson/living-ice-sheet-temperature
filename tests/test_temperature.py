@@ -2,8 +2,8 @@ import numpy
 import pytest
 from pandas import DataFrame
 
-from living_ice_temperature import temperature
-from living_ice_temperature.temperature import Mode
+from list import temperature
+from list.temperature import Mode
 
 
 @pytest.mark.parametrize("mode,column", [(Mode.pure_ice, "pure_temperature_K")])

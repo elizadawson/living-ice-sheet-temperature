@@ -3,8 +3,8 @@ from pathlib import Path
 
 from pytest import MonkeyPatch
 
-from living_ice_temperature.borehole import Borehole
-from living_ice_temperature.client import Client
+from list.borehole import Borehole
+from list.client import Client
 
 
 def test_boreholes(boreholes_path: Path, monkeypatch: MonkeyPatch) -> None:

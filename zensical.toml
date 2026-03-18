@@ -1,0 +1,45 @@
+[project]
+site_name = "Living Ice Temperature"
+site_description = "Radar-derived ice temperature data visualization for Antarctica."
+site_url = "https://developmentseed.github.io/living-ice-temperature/docs/"
+repo_url = "https://github.com/developmentseed/living-ice-temperature"
+copyright = "Copyright &copy; 2026 Development Seed"
+edit_uri = "edit/main/docs/"
+
+[project.theme]
+favicon = "thermometer-snowflake.png"
+language = "en"
+
+[project.theme.icon]
+logo = "lucide/thermometer-snowflake"
+repo = "fontawesome/brands/github"
+
+features = [
+    "announce.dismiss",
+    "content.action.edit",
+    "content.action.view",
+    "content.code.annotate",
+    "content.code.copy",
+    "content.code.select",
+    "content.footnote.tooltips",
+    "content.tooltips",
+    "navigation.footer",
+    "navigation.indexes",
+    "navigation.instant",
+    "navigation.instant.prefetch",
+    "navigation.path",
+    "navigation.sections",
+    "navigation.top",
+    "navigation.tracking",
+    "search.highlight",
+]
+
+[[project.theme.palette]]
+scheme = "default"
+toggle.icon = "lucide/sun"
+toggle.name = "Switch to dark mode"
+
+[[project.theme.palette]]
+scheme = "slate"
+toggle.icon = "lucide/moon"
+toggle.name = "Switch to light mode"
