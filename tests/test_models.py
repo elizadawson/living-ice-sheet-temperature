@@ -3,8 +3,8 @@ from pathlib import Path
 
 from pytest import MonkeyPatch
 
-from list.borehole import Borehole
-from list.client import Client
+from livist.borehole import Borehole
+from livist.client import Client
 
 
 def test_boreholes(boreholes_path: Path, monkeypatch: MonkeyPatch) -> None:

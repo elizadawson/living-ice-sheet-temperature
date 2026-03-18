@@ -1,5 +1,5 @@
 [project]
-name = "list"
+name = "livist"
 version = "0.1.0"
 description = "Backend processing for radar-derived ice temperature data in Antarctica"
 readme = "README.md"
@@ -21,7 +21,7 @@ dependencies = [
 ]
 
 [project.scripts]
-list = "list.main:cli"
+livist = "livist.main:cli"
 
 [dependency-groups]
 dev = [
