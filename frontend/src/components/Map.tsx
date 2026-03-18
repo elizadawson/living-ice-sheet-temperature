@@ -33,7 +33,12 @@ const BOREHOLE_COLORS = {
   all: { hex: "#e53e3e", rgb: [229, 62, 62] as Rgb },
 };
 
-function createTriangleIcon(fill: Rgb): { url: string; width: number; height: number; anchorY: number } {
+function createTriangleIcon(fill: Rgb): {
+  url: string;
+  width: number;
+  height: number;
+  anchorY: number;
+} {
   const [r, g, b] = fill;
   const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32"><polygon points="16,2 30,28 2,28" fill="rgb(${r},${g},${b})" fill-opacity="0.8" stroke="black" stroke-width="1"/></svg>`;
   return {
@@ -46,8 +51,12 @@ function createTriangleIcon(fill: Rgb): { url: string; width: number; height: nu
 
 const BOREHOLE_ICONS = {
   temperature: createTriangleIcon(BOREHOLE_COLORS.temperature.rgb),
-  temperatureChemistry: createTriangleIcon(BOREHOLE_COLORS.temperatureChemistry.rgb),
-  temperatureGrainSize: createTriangleIcon(BOREHOLE_COLORS.temperatureGrainSize.rgb),
+  temperatureChemistry: createTriangleIcon(
+    BOREHOLE_COLORS.temperatureChemistry.rgb,
+  ),
+  temperatureGrainSize: createTriangleIcon(
+    BOREHOLE_COLORS.temperatureGrainSize.rgb,
+  ),
   all: createTriangleIcon(BOREHOLE_COLORS.all.rgb),
 };
 
