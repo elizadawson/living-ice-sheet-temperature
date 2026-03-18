@@ -21,7 +21,7 @@ We provide a command-line interface (CLI) for running data processing operations
 To see what commands are available, install [uv](https://docs.astral.sh/uv/getting-started/installation/) then:
 
 ```sh
-uv run list --help
+uv run livist --help
 ```
 
 ### Generating data products

@@ -3,11 +3,11 @@ GDAL ?= gdal
 ALL: frontend/public/boreholes.json data/temperature-pure-ice-wgs84.parquet data/temperature-pure-ice.pmtiles
 
 frontend/public/boreholes.json:
-	uv run list boreholes > $@
+	uv run livist boreholes > $@
 
 data/temperature-pure-ice-wgs84.parquet:
 	mkdir -p $(dir $@)
-	uv run list \
+	uv run livist \
 	    temperature --to-wgs84 \
 		https://data.source.coop/englacial/ice-sheet-temperature/AttenuationRateData/depth-avg-attenuation-ASE.txt \
 		$@
