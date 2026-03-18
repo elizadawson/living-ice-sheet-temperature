@@ -12,7 +12,7 @@ from .temperature import Mode, compute_along_track
 
 @click.group()
 def cli() -> None:
-    """Data processing for Living Ice Temperature."""
+    """Data processing for the Living Ice Sheet Temperature (list) project."""
 
 
 @cli.command()

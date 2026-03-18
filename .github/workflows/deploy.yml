@@ -17,9 +17,6 @@ concurrency:
 jobs:
   build:
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: frontend
     steps:
       - uses: actions/checkout@v6
       - uses: actions/setup-node@v6
@@ -27,13 +24,23 @@ jobs:
           node-version: 22
           cache: yarn
           cache-dependency-path: frontend/yarn.lock
-      - name: Install dependencies
+      - uses: astral-sh/setup-uv@v7
+      - name: Install frontend dependencies
         run: yarn install --immutable
-      - name: Build
+        working-directory: frontend
+      - name: Build frontend
         run: yarn build
+        working-directory: frontend
+      - name: Build docs
+        run: uv run zensical build --clean
+      - name: Combine artifacts
+        run: |
+          mkdir -p _site
+          cp -r frontend/dist/* _site/
+          cp -r site _site/docs
       - uses: actions/upload-pages-artifact@v4
         with:
-          path: frontend/dist
+          path: _site
 
   deploy:
     needs: build

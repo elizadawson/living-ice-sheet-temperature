@@ -1,5 +1,5 @@
 [project]
-name = "living-ice-temperature"
+name = "list"
 version = "0.1.0"
 description = "Backend processing for radar-derived ice temperature data in Antarctica"
 readme = "README.md"
@@ -21,7 +21,7 @@ dependencies = [
 ]
 
 [project.scripts]
-living-ice-temperature = "living_ice_temperature.main:cli"
+list = "list.main:cli"
 
 [dependency-groups]
 dev = [
@@ -29,6 +29,7 @@ dev = [
     "respx>=0.22.0",
     "ruff>=0.15.5",
     "ty>=0.0.21",
+    "zensical>=0.0.27",
 ]
 
 [tool.ruff.lint]
