@@ -1,14 +1,18 @@
 # Copied, with modifications, from https://github.com/elizadawson/ice_attenuation_temperature/blob/c0efc77db4fd50e12396d9b0c9c6aed54f45aca9/src/atten_temp_functions.py
+from __future__ import annotations
 
 from collections.abc import Callable
 from dataclasses import dataclass
 from enum import StrEnum
+from io import StringIO
 
 import geopandas
 import numpy
+import pandas
 import scipy.optimize
 import tqdm
 from geopandas import GeoDataFrame
+from obstore.store import HTTPStore
 from pandas import DataFrame
 
 K = 1.380649e-23
@@ -29,6 +33,17 @@ E_SSCL = 0.19 * 1.602176634e-19
 class ChemistryParameters:
     molar_hp: float
     molar_sscl: float
+
+    @classmethod
+    def from_borehole_href(cls, borehole_href: str) -> ChemistryParameters:
+        parts = borehole_href.rsplit("/", 1)
+        store = HTTPStore.from_url(parts[0])
+        result = store.get(parts[1])
+        data_frame = pandas.read_csv(StringIO(bytes(result.bytes()).decode("utf-8")))
+        return ChemistryParameters(
+            molar_hp=data_frame["acid [mol/L]"].mean().item(),
+            molar_sscl=data_frame["sscl [mol/L]"].mean().item(),
+        )
 
 
 class Mode(StrEnum):
