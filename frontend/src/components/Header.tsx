@@ -1,5 +1,5 @@
 import { LuThermometerSnowflake } from "react-icons/lu";
-import { Box, Button, HStack, Heading, Icon, Link } from "@chakra-ui/react";
+import { Box, Button, HStack, Heading, Icon } from "@chakra-ui/react";
 
 export default function Header() {
   return (
