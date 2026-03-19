@@ -1,5 +1,5 @@
 import { LuThermometerSnowflake } from "react-icons/lu";
-import { Box, Button, HStack, Heading, Icon, Link } from "@chakra-ui/react";
+import { Box, Button, HStack, Heading, Icon } from "@chakra-ui/react";
 
 export default function Header() {
   return (
@@ -13,9 +13,14 @@ export default function Header() {
         </HStack>
       </Heading>
       <Box flex="1" />
-      <Link href="./docs" asChild target="_blank">
-        <Button variant={"outline"}>Docs</Button>
-      </Link>
+      <Button variant={"surface"}>
+        <a
+          href="https://developmentseed.org/living-ice-sheet-temperature/docs/"
+          target="_blank"
+        >
+          Docs
+        </a>
+      </Button>
     </HStack>
   );
 }

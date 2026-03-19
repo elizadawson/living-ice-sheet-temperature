@@ -88,7 +88,7 @@ export function createTemperatureLayer(pmtilesSource: PMTiles) {
         stroked: true,
         getFillColor: (f: Feature) =>
           temperatureToColor(f.properties as Record<string, unknown>),
-        getPointRadius: 6,
+        getPointRadius: 2,
         getLineColor: [0, 0, 0, 10],
         getLineWidth: 1,
         lineWidthUnits: "pixels",
