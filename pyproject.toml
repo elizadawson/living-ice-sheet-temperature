@@ -26,11 +26,11 @@ livist = "livist.main:cli"
 [dependency-groups]
 dev = [
     "mkdocstrings-python>=2.0.3",
-    "pytest>=9.0.2",
-    "respx>=0.22.0",
-    "ruff>=0.15.5",
-    "ty>=0.0.21",
-    "zensical>=0.0.27",
+    "pytest>=9.0.3",
+    "respx>=0.23.1",
+    "ruff>=0.15.10",
+    "ty>=0.0.29",
+    "zensical>=0.0.32",
 ]
 
 [tool.ruff.lint]
