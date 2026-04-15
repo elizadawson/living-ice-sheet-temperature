@@ -1,14 +1,14 @@
 # Living Ice Sheet Temperature
 
-![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/developmentseed/living-ice-sheet-temperature/ci.yml?style=for-the-badge&link=https%3A%2F%2Fgithub.com%2Fdevelopmentseed%2Fliving-ice-sheet-temperature%2Factions%2Fworkflows%2Fci.yml)
-![GitHub deployments](https://img.shields.io/github/deployments/developmentseed/living-ice-sheet-temperature/github-pages?style=for-the-badge&link=https%3A%2F%2Fdevelopmentseed.org%2Fliving-ice-sheet-temperature%2F)
+![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/elizadawson/living-ice-sheet-temperature/ci.yml?style=for-the-badge&link=https%3A%2F%2Fgithub.com%2Felizadawson%2Fliving-ice-sheet-temperature%2Factions%2Fworkflows%2Fci.yml)
+![GitHub deployments](https://img.shields.io/github/deployments/elizadawson/living-ice-sheet-temperature/github-pages?style=for-the-badge&link=https://elizadawson.github.io/living-ice-sheet-temperature/[])
 
 Visualize, download, and process Antarctic ice sheet temperature data.
 Resources:
 
-- [Map-based frontend](https://developmentseed.org/living-ice-sheet-temperature/)
+- [Map-based frontend](https://elizadawson.github.io/living-ice-sheet-temperature/)
 - [Source data on source.coop](https://source.coop/englacial/ice-sheet-temperature)
-- [Python package documentation](https://developmentseed.org/living-ice-sheet-temperature/docs/)
+- [Python package documentation](https://elizadawson.github.io/living-ice-sheet-temperature/docs/)
 
 ## Processing data
 
@@ -36,7 +36,7 @@ GDAL=/path/to/parquet/enabed/gdal make
 First, clone the repository:
 
 ```sh
-git clone https://github.com/developmentseed/living-ice-sheet-temperature
+git clone https://github.com/elizadawson/living-ice-sheet-temperature
 cd living-ice-sheet-temperature
 ```
 
