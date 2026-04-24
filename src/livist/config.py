@@ -1,3 +1,5 @@
+from pathlib import Path
+
 from obstore.store import HTTPStore, S3Store
 from pydantic_settings import (
     BaseSettings,
@@ -28,6 +30,7 @@ class SourceCoop(BaseSettings):
 class Config(BaseSettings):
     """General configuration."""
 
+    data_directory: Path
     borehole_path: str
     attenuation_paths: dict[str, str]
     source_coop: SourceCoop = SourceCoop()
@@ -44,3 +47,6 @@ class Config(BaseSettings):
         file_secret_settings: PydanticBaseSettingsSource,
     ) -> tuple[PydanticBaseSettingsSource, ...]:
         return (TomlConfigSettingsSource(settings_cls),)
+
+    def get_temperature_file_name(self, attenuation_name: str, mode: str) -> Path:
+        return self.data_directory / f"temperature-{attenuation_name}-{mode}.parquet"

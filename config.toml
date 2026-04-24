@@ -1,3 +1,4 @@
+data_directory = "data"
 borehole_path = "englacial/ice-sheet-temperature/AntarcticaBoreholeData/BoreholeLocations.csv"
 
 [attenuation_paths]

@@ -4,9 +4,12 @@ from collections import defaultdict
 from io import StringIO
 from pathlib import Path
 
+import numpy
 import pandas
 import tqdm
 from pandas import DataFrame
+from pykrige import OrdinaryKriging
+from pyproj import Transformer
 
 from . import temperature
 from .borehole import Borehole
@@ -39,14 +42,14 @@ class Client:
         """
         urls = defaultdict(dict)
         for list_result in self.s3_store.list(
-            prefix=str(Path(self.config.borehole_path).parent)
+            prefix=str(Path(self.config.borehole_path).parent) + "/"
         ):
             for object_meta in list_result:
                 path = object_meta["path"]
                 if not path.endswith(".csv"):
                     continue
                 path_parts = path.split("/")
-                if len(path_parts) != 3:
+                if len(path_parts) != 5:
                     continue
                 parts = path_parts[-1].split(".")[0].split("_")
                 if not len(parts) == 2:
@@ -111,7 +114,9 @@ class Client:
     def compute_along_track(self, attenuation_name: str, mode: Mode) -> DataFrame:
         data_frame = self.get_attenuation(attenuation_name)
         if mode == Mode.chemistry:
-            chemistry = self.get_chemistry()
+            chemistry = self.get_chemistry(
+                data_frame["x"].tolist(), data_frame["y"].tolist()
+            )
         else:
             chemistry = None
 
@@ -126,18 +131,67 @@ class Client:
                 "Valid values are: "
                 ", ".join(list(self.config.attenuation_paths.keys()))
             )
-        result = self.http_store.get(path)
-        text = ""
-        with tqdm.tqdm(
-            total=result.meta["size"],
-            desc="Fetching attenuation data",
-            unit="B",
-            unit_scale=True,
-        ) as progress:
-            for chunk in result:
-                text += chunk.decode("utf-8")
-                progress.update(len(chunk))
-        return pandas.read_csv(StringIO(text))
+        local_path = self.config.data_directory / path
+        if not local_path.exists():
+            result = self.http_store.get(path)
+            local_path.parent.mkdir(parents=True, exist_ok=True)
+            with (
+                local_path.open("wb") as f,
+                tqdm.tqdm(
+                    total=result.meta["size"],
+                    desc="Fetching attenuation data",
+                    unit="B",
+                    unit_scale=True,
+                ) as progress,
+            ):
+                for chunk in result:
+                    f.write(chunk)
+                    progress.update(len(chunk))
+        return pandas.read_csv(local_path)
 
-    def get_chemistry(self) -> list[Chemistry]:
-        raise NotImplementedError
+    def get_chemistry(self, x: list[float], y: list[float]) -> list[Chemistry]:
+        transformer = Transformer.from_crs("EPSG:4326", "EPSG:3031")
+        boreholes = self.get_boreholes()
+        borehole_x = list()
+        borehole_y = list()
+        molar_hp = list()
+        molar_sscl = list()
+        for borehole in boreholes:
+            if borehole.chemistry_data_url:
+                result = self.http_store.get(
+                    urllib.parse.urlparse(borehole.chemistry_data_url).path
+                )
+                text = bytes(result.bytes()).decode("utf-8")
+                data_frame = pandas.read_csv(StringIO(text))
+                if "acid [mol/L]" in data_frame and "sscl [mol/L]" in data_frame:
+                    proj_x, proj_y = transformer.transform(borehole.lat, borehole.lon)
+                    borehole_x.append(proj_x)
+                    borehole_y.append(proj_y)
+                    hp = data_frame[["depth [m]", "acid [mol/L]"]].dropna()
+                    sscl = data_frame[["depth [m]", "sscl [mol/L]"]].dropna()
+                    hp_depth = numpy.asarray(hp["depth [m]"])
+                    sscl_depth = numpy.asarray(sscl["depth [m]"])
+                    molar_hp.append(
+                        numpy.trapezoid(numpy.asarray(hp["acid [mol/L]"]), hp_depth)
+                        / (hp_depth[-1] - hp_depth[0])
+                    )
+                    molar_sscl.append(
+                        numpy.trapezoid(numpy.asarray(sscl["sscl [mol/L]"]), sscl_depth)
+                        / (sscl_depth[-1] - sscl_depth[0])
+                    )
+        molar_values = OrdinaryKriging(borehole_x, borehole_y, molar_hp).execute(
+            "points", x, y
+        )
+        sscl_values = OrdinaryKriging(borehole_x, borehole_y, molar_sscl).execute(
+            "points", x, y
+        )
+        return [
+            Chemistry(molar_hp=a, molar_sscl=b)
+            for a, b in zip(molar_values, sscl_values)
+        ]
+
+    def write_temperature_file(
+        self, attenuation_name: str, mode: Mode, data_frame: DataFrame
+    ) -> None:
+        outfile = self.config.get_temperature_file_name(attenuation_name, mode)
+        data_frame.to_parquet(outfile)  # ty: ignore[invalid-argument-type]

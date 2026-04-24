@@ -23,20 +23,18 @@ def boreholes() -> None:
 @cli.command()
 @click.argument("ATTENUATION_NAME")
 @click.argument("MODE", type=Choice([m.value for m in Mode]))
-@click.argument("OUTFILE")
 @click.option("--to-wgs84", is_flag=True, default=False)
-def temperatures(
+def temperature(
     attenuation_name: str,
-    outfile: str,
     mode: Mode,
     to_wgs84: bool,
 ) -> None:
     """Create along-track temperatures"""
     client = Client()
-    result = client.compute_along_track(attenuation_name, mode)
+    data_frame = client.compute_along_track(attenuation_name, mode)
     if to_wgs84:
-        result = result.to_crs("EPSG:4326")
-    result.to_parquet(outfile)  # ty: ignore[invalid-argument-type]
+        data_frame = data_frame.to_crs("EPSG:4326")
+    client.write_temperature_file(attenuation_name, mode, data_frame)
 
 
 if __name__ == "__main__":
