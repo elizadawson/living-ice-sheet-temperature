@@ -33,7 +33,7 @@ class Client:
         Args:
             config: Optional configuration. Uses default Config if not provided.
         """
-        self.config = config or Config()  # pyright: ignore[reportCallIssue]
+        self.config = config or Config()  # ty: ignore[missing-argument]
         self.http_store = self.config.source_coop.http_store()
         self.s3_store = self.config.source_coop.s3_store()
 
@@ -203,4 +203,4 @@ class Client:
         self, attenuation_name: str, mode: Mode, data_frame: DataFrame
     ) -> None:
         outfile = self.config.get_temperature_file_name(attenuation_name, mode)
-        data_frame.to_parquet(outfile)  # ty: ignore[invalid-argument-type]
+        data_frame.to_parquet(outfile)
