@@ -10,26 +10,46 @@ Resources:
 - [Source data on source.coop](https://source.coop/englacial/ice-sheet-temperature)
 - [Python package documentation](https://elizadawson.github.io/living-ice-sheet-temperature/docs/)
 
-## Processing data
 
-You'll need [GDAL](https://gdal.org/en/stable/download.html#binaries) and [tippecanoe](https://github.com/felt/tippecanoe?tab=readme-ov-file#installation).
-We use a simple [Makefile](./Makefile) to (re)generate data.
+## Generating data
 
-```sh
-make
-```
-
-To force regeneration of all data:
+You'll need [GDAL with Parquet support](https://gdal.org/en/stable/drivers/vector/parquet.html#conda-forge-package) and [tippecanoe](https://github.com/felt/tippecanoe?tab=readme-ov-file#installation).
+To generate everything:
 
 ```sh
-make -B
+scripts/generate
 ```
 
-If your default GDAL install doesn't have parquet reader support, you can customize the GDAL location:
+### Custom GDAL
+
+If you need to specify which GDAL you'd like to use to enable parquet support:
 
 ```sh
-GDAL=/path/to/parquet/enabed/gdal make
+GDAL=/a/path/to/gdal scripts/generate
 ```
+
+## Uploading data
+
+To upload, you first need the [AWS CLI](https://aws.amazon.com/cli/) and credentials from source.coop.
+Go to https://source.coop/englacial/ice-sheet-temperature and click on the lock:
+
+![Edit mode](./img/edit-mode.png)
+
+This will give you the option to "View credentials":
+
+![View credentials](./img/view-credentials.png)
+
+Choose "Environment Variables" and then copy those `export` commands into your shell.
+Then:
+
+```sh
+scripts/upload
+```
+
+## Adding data
+
+To add a new source of attenuation data, edit [config.toml](./config.toml) and add a new entry to the `[attenuation_paths]` section.
+Then, [generate](#generating-data) and [upload](#uploading-data) the new data.
 
 ## Developing
 

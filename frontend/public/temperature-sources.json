@@ -1,0 +1,14 @@
+{
+  "conductivity": [
+    {
+      "name": "ase",
+      "url": "https://data.source.coop/englacial/ice-sheet-temperature/temperature/temperature-ase-conductivity.pmtiles"
+    }
+  ],
+  "pure-ice": [
+    {
+      "name": "ase",
+      "url": "https://data.source.coop/englacial/ice-sheet-temperature/temperature/temperature-ase-pure-ice.pmtiles"
+    }
+  ]
+}

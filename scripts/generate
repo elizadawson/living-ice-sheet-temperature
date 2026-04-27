@@ -1,0 +1,12 @@
+#!/usr/bin/env sh
+
+set -e
+
+uv run livist temperature
+uv run livist temperature --to-wgs84
+for path in data/*-wgs84.parquet; do
+    stem="${path%-wgs84.parquet}"
+    "${GDAL:-gdal}" vector convert --overwrite "$path" "${stem}.fgb"
+    tippecanoe --force -zg -o "${stem}.pmtiles" "${stem}.fgb"
+done
+uv run livist temperature-sources > frontend/public/temperature-sources.json

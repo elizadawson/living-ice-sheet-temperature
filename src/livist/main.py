@@ -1,65 +1,79 @@
-from io import StringIO
+import json
 
 import click
-import pandas
-import tqdm
-from obstore.store import HTTPStore
+from click import Choice
 
 from .borehole import Borehole
 from .client import Client
-from .temperature import ChemistryParameters, Mode, compute_along_track
+from .config import Config
+from .temperature import Mode
 
 
 @click.group()
 def cli() -> None:
-    """Data processing for the Living Ice Sheet Temperature (list) project."""
+    """Data processing for the Living Ice Sheet Temperature (livist) project."""
+
+
+@cli.command()
+def config() -> None:
+    """Print the current configuration"""
+    click.echo(Config().model_dump_json(indent=2))  # ty: ignore[missing-argument]
 
 
 @cli.command()
 def boreholes() -> None:
     """Print borehole data as a FeatureCollection"""
     client = Client()
-    text = client.get_borehole_locations_text()
-    boreholes = Borehole.from_csv(text, client=client)
+    boreholes = client.get_boreholes()
     features = Borehole.to_feature_collection(boreholes)
     click.echo(features.model_dump_json(indent=2))
 
 
+@cli.command("temperature-sources")
+def temperature_sources() -> None:
+    """Print pmtiles URLs per mode as JSON for the frontend manifest."""
+    config = Config()  # ty: ignore[missing-argument]
+    base_url = (
+        f"{config.source_coop.http_url}/englacial/ice-sheet-temperature/temperature/"
+    )
+    sources = {
+        mode.value: [
+            {
+                "name": name,
+                "url": f"{base_url}temperature-{name}-{mode.value}.pmtiles",
+            }
+            for name in config.attenuation_paths
+        ]
+        for mode in Mode
+    }
+    click.echo(json.dumps(sources, indent=2))
+
+
 @cli.command()
-@click.argument("ATTENUATION_HREF")
-@click.argument("OUTFILE")
-@click.option("--mode", type=click.Choice(Mode), default=Mode.pure_ice)
+@click.option("--attenuation-name", "attenuation_name", default=None)
+@click.option("--mode", "mode", type=Choice([m.value for m in Mode]), default=None)
 @click.option("--to-wgs84", is_flag=True, default=False)
-@click.option("--borehole-url")
-def temperatures(
-    attenuation_href: str,
-    outfile: str,
-    mode: Mode,
+def temperature(
+    attenuation_name: str | None,
+    mode: str | None,
     to_wgs84: bool,
-    borehole_url: str | None,
 ) -> None:
     """Create along-track temperatures"""
-    parts = attenuation_href.rsplit("/", 1)
-    store = HTTPStore.from_url(parts[0])
-    result = store.get(parts[1])
-    text = ""
-    with tqdm.tqdm(
-        total=result.meta["size"], desc="Fetching data", unit="B", unit_scale=True
-    ) as progress:
-        for chunk in result:
-            text += chunk.decode("utf-8")
-            progress.update(len(chunk))
-    track = pandas.read_csv(StringIO(text))
-
-    if borehole_url:
-        chemistry_parameters = ChemistryParameters.from_borehole_href(borehole_url)
-    else:
-        chemistry_parameters = None
-
-    result = compute_along_track(track, mode, chemistry_parameters)
-    if to_wgs84:
-        result = result.to_crs("EPSG:4326")
-    result.to_parquet(outfile)  # ty: ignore[invalid-argument-type]
+    client = Client()
+    attenuation_names = (
+        [attenuation_name]
+        if attenuation_name
+        else list(client.config.attenuation_paths.keys())
+    )
+    modes = [Mode(mode)] if mode else list(Mode)
+    for name in attenuation_names:
+        for m in modes:
+            data_frame = client.compute_along_track(name, m)
+            if to_wgs84:
+                data_frame = data_frame.to_crs("EPSG:4326")
+            client.write_temperature_file(
+                name, m, data_frame, suffix="-wgs84" if to_wgs84 else None
+            )
 
 
 if __name__ == "__main__":
