@@ -12,11 +12,19 @@ Resources:
 
 ## Processing data
 
-You'll need [GDAL](https://gdal.org/en/stable/download.html#binaries) and [tippecanoe](https://github.com/felt/tippecanoe?tab=readme-ov-file#installation).
+You'll need [GDAL with Parquet support](https://gdal.org/en/stable/drivers/vector/parquet.html#conda-forge-package) and [tippecanoe](https://github.com/felt/tippecanoe?tab=readme-ov-file#installation).
 To generate everything:
 
 ```sh
 scripts/generate
+```
+
+### Custom GDAL
+
+If you need to specify which GDAL you'd like to use to enable parquet support:
+
+```sh
+GDAL=/a/path/to/gdal scripts/generate
 ```
 
 ## Uploading data
