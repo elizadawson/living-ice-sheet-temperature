@@ -13,8 +13,8 @@ dependencies = [
     "pandas>=3.0.2",
     "platformdirs>=4.9.6",
     "pyarrow>=23.0.1",
-    "pydantic>=2.13.0",
     "pydantic-settings>=2.13.1",
+    "pydantic>=2.13.0",
     "pykrige>=1.7.3",
     "scipy>=1.17.1",
     "tqdm>=4.67.3",
@@ -25,7 +25,11 @@ livist = "livist.main:cli"
 
 [dependency-groups]
 dev = [
+    "ipykernel>=7.2.0",
+    "jupyter>=1.1.1",
+    "matplotlib>=3.10.9",
     "mkdocstrings-python>=2.0.3",
+    "nbconvert>=7.17.1",
     "pytest>=9.0.3",
     "respx>=0.23.1",
     "ruff>=0.15.10",

@@ -1,6 +1,7 @@
 import csv
 import urllib.parse
 from collections import defaultdict
+from dataclasses import dataclass
 from io import StringIO
 from pathlib import Path
 
@@ -15,6 +16,12 @@ from . import temperature
 from .borehole import Borehole
 from .config import Config
 from .temperature import Chemistry, Mode
+
+
+@dataclass
+class ChemistryKriging:
+    molar: OrdinaryKriging
+    sscl: OrdinaryKriging
 
 
 class Client:
@@ -150,6 +157,15 @@ class Client:
         return pandas.read_csv(local_path)
 
     def get_chemistry(self, x: list[float], y: list[float]) -> list[Chemistry]:
+        chemistry_kriging = self.get_chemistry_kriging()
+        molar_values, _ = chemistry_kriging.molar.execute("points", x, y)
+        sscl_values, _ = chemistry_kriging.sscl.execute("points", x, y)
+        return [
+            Chemistry(molar_hp=a, molar_sscl=b)
+            for a, b in zip(molar_values, sscl_values)
+        ]
+
+    def get_chemistry_kriging(self) -> ChemistryKriging:
         transformer = Transformer.from_crs("EPSG:4326", "EPSG:3031")
         boreholes = self.get_boreholes()
         borehole_x = list()
@@ -179,16 +195,9 @@ class Client:
                         numpy.trapezoid(numpy.asarray(sscl["sscl [mol/L]"]), sscl_depth)
                         / (sscl_depth[-1] - sscl_depth[0])
                     )
-        molar_values = OrdinaryKriging(borehole_x, borehole_y, molar_hp).execute(
-            "points", x, y
-        )
-        sscl_values = OrdinaryKriging(borehole_x, borehole_y, molar_sscl).execute(
-            "points", x, y
-        )
-        return [
-            Chemistry(molar_hp=a, molar_sscl=b)
-            for a, b in zip(molar_values, sscl_values)
-        ]
+        molar = OrdinaryKriging(borehole_x, borehole_y, molar_hp)
+        sscl = OrdinaryKriging(borehole_x, borehole_y, molar_sscl)
+        return ChemistryKriging(molar, sscl)
 
     def write_temperature_file(
         self, attenuation_name: str, mode: Mode, data_frame: DataFrame
