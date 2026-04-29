@@ -132,8 +132,17 @@ class Borehole(BaseModel):
 
 
 def get_borehole_conductivity(data_frame: DataFrame) -> float:
+    return get_depth_averaged_value(data_frame, "conductivity_inf [S/m]")
+
+
+def get_borehole_temperature(data_frame: DataFrame) -> float:
+    """Returns the borehole temperature in degrees Kelvin"""
+    return get_depth_averaged_value(data_frame, "temp [C]") + 273.15
+
+
+def get_depth_averaged_value(data_frame: DataFrame, key: str) -> float:
     depth = numpy.asarray(data_frame["depth [m]"], dtype=float)
-    values = numpy.asarray(data_frame["conductivity_inf [S/m]"], dtype=float)
+    values = numpy.asarray(data_frame[key], dtype=float)
     mask = numpy.isfinite(depth) & numpy.isfinite(values)
     depth = depth[mask]
     values = values[mask]

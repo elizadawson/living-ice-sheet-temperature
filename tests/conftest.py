@@ -5,6 +5,8 @@ import pandas
 import pytest
 from pandas import DataFrame
 
+from livist import Client
+
 
 @pytest.fixture
 def data_path() -> Path:
@@ -35,3 +37,8 @@ def sample_data(sample_data_path: Path) -> DataFrame:
             "chem_temperature_K": [p["chem"]["temperature_K"] for p in points],
         }
     )
+
+
+@pytest.fixture
+def client() -> Client:
+    return Client()
