@@ -35,28 +35,18 @@ class Mode(StrEnum):
 
 def compute_along_track(
     data_frame: DataFrame,
-    conductivity: list[float] | None,
+    conductivity_and_temperature: tuple[list[float], list[float]] | None,
 ) -> GeoDataFrame:
-    """Computes temperature along a radar track from attenuation rates.
-
-    Uses root-finding to invert the attenuation-conductivity relationship and
-    recover temperature at each point along the track.
-
-    Args:
-        data_frame: Input data with columns `atten_rate_C0`, `x`, and `y`.
-        conductivity: The conductivity values to use for calculation. If not
-            provided, the pure-ice math will be used.
-
-    Returns:
-        A GeoDataFrame with `temperature` and `attenuation` columns.
-
-    Raises:
-        ValueError: If `atten_rate_C0` is not in the data frame.
-    """
     if "atten_rate_C0" not in data_frame:
         raise ValueError("atten_rate_C0 not found in data_frame")
 
     attenuation = data_frame["atten_rate_C0"].to_numpy()
+    kriged_conductivity = (
+        conductivity_and_temperature[0] if conductivity_and_temperature else None
+    )
+    kriged_temperature = (
+        conductivity_and_temperature[1] if conductivity_and_temperature else None
+    )
     sigma = (
         attenuation
         * C
@@ -66,8 +56,10 @@ def compute_along_track(
     )
     temperature = numpy.full_like(sigma, numpy.nan, dtype=float)
     for i in tqdm.tqdm(range(sigma.size), desc="Computing temperature"):
-        if conductivity:
-            residual_function = _conductivity_residual(conductivity[i])
+        if kriged_conductivity and kriged_temperature:
+            residual_function = _conductivity_residual(
+                kriged_conductivity[i], kriged_temperature[i]
+            )
         else:
             residual_function = _pure_ice_residual
         try:
@@ -90,10 +82,13 @@ def compute_along_track(
 
 
 def _conductivity_residual(
-    conductivity: float,
+    conductivity: float, temperature: float
 ) -> Callable[[float, float], float]:
     def inner(value: float, sigma: float) -> float:
-        return conductivity * numpy.exp((E_COND / K) * (1 / T_REF - 1 / value)) - sigma
+        return (
+            conductivity * numpy.exp((E_COND / K) * (1 / temperature - 1 / value))
+            - sigma
+        )
 
     return inner
 

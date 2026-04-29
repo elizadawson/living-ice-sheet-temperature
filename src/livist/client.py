@@ -1,10 +1,10 @@
 import csv
 import urllib.parse
 from collections import defaultdict
+from dataclasses import dataclass
 from io import StringIO
 from pathlib import Path
 
-import numpy
 import pandas
 import tqdm
 from pandas import DataFrame
@@ -12,9 +12,15 @@ from pykrige import OrdinaryKriging
 from pyproj import Transformer
 
 from . import temperature
-from .borehole import Borehole
+from .borehole import Borehole, get_borehole_conductivity, get_borehole_temperature
 from .config import Config
 from .temperature import Mode
+
+
+@dataclass
+class Kriging:
+    conductivity: OrdinaryKriging
+    temperature: OrdinaryKriging
 
 
 class Client:
@@ -114,13 +120,13 @@ class Client:
     def compute_along_track(self, attenuation_name: str, mode: Mode) -> DataFrame:
         data_frame = self.get_attenuation(attenuation_name)
         if mode == Mode.conductivity:
-            conductivity = self.get_conductivity(
+            conductivity_and_temperature = self.get_conductivity_and_temperature(
                 data_frame["x"].tolist(), data_frame["y"].tolist()
             )
         else:
-            conductivity = None
+            conductivity_and_temperature = None
 
-        return temperature.compute_along_track(data_frame, conductivity)
+        return temperature.compute_along_track(data_frame, conductivity_and_temperature)
 
     def get_attenuation(self, attenuation_name: str) -> DataFrame:
         try:
@@ -149,38 +155,44 @@ class Client:
                     progress.update(len(chunk))
         return pandas.read_csv(local_path)
 
-    def get_conductivity(self, x: list[float], y: list[float]) -> list[float]:
-        kriging = self.get_conductivity_kriging()
-        values, _ = kriging.execute("points", x, y)
-        return values.tolist()
+    def get_conductivity_and_temperature(
+        self, x: list[float], y: list[float]
+    ) -> tuple[list[float], list[float]]:
+        kriging = self.get_conductivity_and_temperature_kriging()
+        conductivity, _ = kriging.conductivity.execute("points", x, y)
+        temperature, _ = kriging.temperature.execute("points", x, y)
+        return (conductivity.tolist(), temperature.tolist())
 
-    def get_conductivity_kriging(self) -> OrdinaryKriging:
+    def get_conductivity_and_temperature_kriging(self) -> Kriging:
         transformer = Transformer.from_crs("EPSG:4326", "EPSG:3031")
         boreholes = self.get_boreholes()
         borehole_x = list()
         borehole_y = list()
         conductivity = list()
+        temperature = list()
         for borehole in boreholes:
-            if borehole.chemistry_data_url:
+            if borehole.chemistry_data_url and borehole.temperature_data_url:
                 result = self.http_store.get(
                     urllib.parse.urlparse(borehole.chemistry_data_url).path
                 )
                 text = bytes(result.bytes()).decode("utf-8")
-                data_frame = pandas.read_csv(StringIO(text))
-                if "conductivity_inf [S/m]" in data_frame:
+                chemistry_data_frame = pandas.read_csv(StringIO(text))
+                if "conductivity_inf [S/m]" in chemistry_data_frame:
                     proj_x, proj_y = transformer.transform(borehole.lat, borehole.lon)
                     borehole_x.append(proj_x)
                     borehole_y.append(proj_y)
-                    rows = data_frame[["depth [m]", "conductivity_inf [S/m]"]].dropna()
-                    depth = numpy.asarray(rows["depth [m]"])
-                    conductivity.append(
-                        numpy.trapezoid(
-                            numpy.asarray(rows["conductivity_inf [S/m]"]),
-                            depth,
-                        )
-                        / (depth[-1] - depth[0])
+                    conductivity.append(get_borehole_conductivity(chemistry_data_frame))
+
+                    result = self.http_store.get(
+                        urllib.parse.urlparse(borehole.temperature_data_url).path
                     )
-        return OrdinaryKriging(borehole_x, borehole_y, conductivity)
+                    text = bytes(result.bytes()).decode("utf-8")
+                    temperature_data_frame = pandas.read_csv(StringIO(text))
+                    temperature.append(get_borehole_temperature(temperature_data_frame))
+        return Kriging(
+            conductivity=OrdinaryKriging(borehole_x, borehole_y, conductivity),
+            temperature=OrdinaryKriging(borehole_x, borehole_y, temperature),
+        )
 
     def write_temperature_file(
         self,

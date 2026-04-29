@@ -3,3 +3,4 @@
 set -e
 
 uv run --with nbconvert jupyter nbconvert --to markdown docs/conductivity-kriging.ipynb --execute
+uv run --with nbconvert jupyter nbconvert --to markdown docs/temperature-comparison.ipynb --execute
